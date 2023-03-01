@@ -1,0 +1,23 @@
+body {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body main {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+body main h4 {
+  margin: 5px;
+}
+body a {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}/*# sourceMappingURL=condition-of-use.css.map */

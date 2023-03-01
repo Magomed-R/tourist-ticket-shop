@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="icon" href="assets/icons8-аэропорт-64.png">
+</head>
+<body>
+    <article class="profile">
+	<div class="profile-image">
+		<img src="assets/icons8-cat-profile-50.svg" />
+	</div>
+	<h2 class="profile-username">{{name}}</h2>
+	<small class="profile-user-handle">{{email}}</small>
+	<div class="profile-actions">
+		<a href="/?txt={{name}}&email={{email}}&buys={{buys}}" class="btn btn--primary">Закрыть</a>
+    </div>
+</article>
+</body>
+</html>

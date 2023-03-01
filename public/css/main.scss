@@ -1,0 +1,48 @@
+body {
+    user-select: none;
+    overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    svg {
+        cursor: pointer;
+    }
+    .bg-violet {
+        background: darkviolet;
+        border: none !important;
+    }
+    .violet {
+        color: darkviolet !important;
+    }
+    header {
+        white-space: nowrap;
+        z-index: 1;
+    }
+    main {
+        transition: 1s all;
+        .welcome-card {
+            background-clip: border-box;
+            border: 1px solid #0003 !important;
+            border-radius: 0.375em !important;
+            transition: 1s all;
+            padding: 10px;
+        }
+        @media (min-width: 0) and (max-width: 767px) {
+            .img-fluid {
+                border-radius: 0.375em 0.375em 0 0 !important;
+            }
+        }
+    }
+}
+@media (min-width: 0) and (max-width: 767px) {
+    footer {
+        flex-direction: column;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0;
+    }
+}
+@media (min-width: 0) and (max-width: 1440px) {
+    .welcome-card {
+        width: 95% !important;
+    }
+}
+

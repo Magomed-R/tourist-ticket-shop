@@ -1,0 +1,21 @@
+body {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    font-family: Arial, Helvetica, sans-serif;
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        h4 {
+            margin: 5px;
+        }
+    }
+    a {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+}
