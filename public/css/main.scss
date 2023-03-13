@@ -25,6 +25,11 @@ body {
             transition: 1s all;
             padding: 10px;
         }
+        .position-top-end {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
         @media (min-width: 0) and (max-width: 767px) {
             .img-fluid {
                 border-radius: 0.375em 0.375em 0 0 !important;

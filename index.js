@@ -1,11 +1,25 @@
+/* template:
+{
+    name: 'name',
+    email: 'email',
+    pswd: 'pswd'
+    basket: 0
+} */
+
 let express = require(`express`);
 let app = express();
 
 app.use(express.static(`public`));
 
+app.use(express.urlencoded({ extended: true }));
+
 const hbs = require("hbs");
 app.set("views", "views");
 app.set("view engine", "hbs");
+
+app.listen(3000, function () {
+    console.log(`Сервер запущен`);
+});
 
 let database = [
     {
@@ -14,7 +28,9 @@ let database = [
         img0: `вена0`,
         img1: `вена1`,
         img2: `вена2`,
-        price: 22937
+        price: 22937,
+        number: 0,
+        mark: ["assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png", "assets/half-star.png"]
     },
     {
         title: `Хорватия`,
@@ -22,7 +38,9 @@ let database = [
         img0: `хорватия0`,
         img1: `хорватия1`,
         img2: `хорватия2`,
-        price: 29092
+        price: 29092,
+        number: 1,
+        mark: ["assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png"]
     },
     {
         title: `Норвегия`,
@@ -30,7 +48,9 @@ let database = [
         img0: `норвегия0`,
         img1: `норвегия1`,
         img2: `норвегия2`,
-        price: 26925
+        price: 26925,
+        number: 2,
+        mark: ["assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png", "assets/empty-star.png"]
     },
     {
         title: `Франция`,
@@ -38,85 +58,104 @@ let database = [
         img0: `франция0`,
         img1: `франция1`,
         img2: `франция2`,
-        price: 94286
+        price: 94286,
+        number: 3,
+        mark: ["assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png", "assets/empty-star.png"]
     }
 ];
+let user = {};
+user.welcomeMessage = true;
+let basket = [];
 
 app.get(`/`, function (req, res) {
-    let name = req.query.txt;
-    let email = req.query.email;
-    let buys = req.query.buys;
-    console.log(req.query);
-    if (!buys) {
-        buys = 0;
-    }
-    if (!name) {
-        res.render(`index`);
-    } else {
-        res.render(`main`, {
-            name: name,
-            email: email,
-            buys: buys,
-            info: database
+    res.render(`index`);
+});
+
+app.post(`/signUp`, function (req, res) {
+    basket = [];
+    user.username = req.body.username;
+    user.email = req.body.email;
+    user.pswd = req.body.pswd;
+    res.redirect(`/main`);
+});
+
+app.get(`/main`, function (req, res) {
+    let tag = req.query.tag;
+    let allTickets = true;
+    let popularTickets = false;
+    let info = database;
+    if (tag == "popular") {
+        allTickets = false;
+        popularTickets = true;
+        info = [];
+        database.forEach((item) => {
+            info.unshift(item);
         });
     }
+    res.render(`main`, {
+        user: user,
+        basket: basket,
+        info: info,
+        allTickets: allTickets,
+        popularTickets: popularTickets
+    });
 });
 
 app.get(`/profile`, function (req, res) {
-    let name = req.query.txt;
-    let email = req.query.email;
-    let buys = req.query.buys;
     res.render(`profile`, {
-        name: name,
-        email: email,
-        buys: buys
-    });
-});
-
-app.get(`/article`, function (req, res) {
-    let name = req.query.txt;
-    let email = req.query.email;
-    let buys = req.query.buys;
-    let id = req.query.id;
-    if (!id || id < 0 || id > database.length) {
-        res.render(`404`);
-    }
-    res.render(`article`, {
-        name: name,
-        email: email,
-        buys: buys,
-        info: database[id]
-    });
-});
-
-app.get(`/about-us`, function (req, res) {
-    let name = req.query.txt;
-    let email = req.query.email;
-    let buys = req.query.buys;
-    if (!buys) {
-        buys = 0
-    }
-    res.render(`about-us`, {
-        name: name,
-        email: email,
-        buys: buys
+        info: database,
+        user: user
     });
 });
 
 app.get(`/basket`, function (req, res) {
-    let name = req.query.txt;
-    let email = req.query.email;
-    let buys = req.query.buys;
-    if (!buys) {
-        buys = 0
-    }
+    let noneBuys = true;
+    if (basket.length) noneBuys = false;
     res.render(`basket`, {
-        name: name,
-        email: email,
-        buys: buys
+        info: database,
+        user: user,
+        basket: basket,
+        noneBuys: noneBuys
     });
 });
 
-app.listen(3000, function () {
-    console.log(`Сервер запущен`);
+app.get(`/article`, function (req, res) {
+    let id = req.query.id;
+    res.render(`article`, {
+        info: database[id],
+        id: id,
+        user: user,
+        basket: basket
+    });
 });
+
+app.get(`/newBuy`, function (req, res) {
+    let id = req.query.id;
+    let condition = true
+    basket.forEach((item) => {
+        if (item.title.includes(database[id].title)) {
+            condition = false
+        }
+    });
+    if (condition) {
+        basket.push(database[id]);
+    }
+    res.redirect(`/article?id=${id}`);
+});
+
+app.get(`/about-us`, function (req, res) {
+    res.render(`about-us`, {
+        basket: basket
+    });
+});
+
+app.get(`/deleteWelcome`, function (req, res) {
+    user.welcomeMessage = false;
+    res.redirect(`/main`);
+});
+
+app.get(`/deleteTicket`, function (req, res) {
+    basket.splice(basket[req.query.id], 1);
+    res.redirect(`/basket`);
+});
+

@@ -12,7 +12,7 @@
             <input type="checkbox" id="chk" aria-hidden="true" />
 
             <div class="signup">
-                <form>
+                <form action="/signUp" method="post">
                     <div class="logo">
                         <svg id="logo-82" width="50" height="35" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -25,10 +25,10 @@
                         </svg>
                     </div>
                     <label for="chk" aria-hidden="true">Регистрация</label>
-                    <input type="text" name="txt" placeholder="Логин" required="" />
-                    <input type="email" name="email" placeholder="Email" required="" />
+                    <input type="text" name="username" placeholder="Логин" required />
+                    <input type="email" name="email" placeholder="Email" required />
                     <input type="password" name="pswd" placeholder="Пароль" required="" class="m-0"/>
-                    <label for="checkbox" class="checkbox"><input type="checkbox" id="checkbox" required=""><small>Согласие об<a href="Condition-of-use.html"> условиях использования</a></small></label>
+                    <label for="checkbox" class="checkbox"><input type="checkbox" id="checkbox" required><small>Согласие об<a href="Condition-of-use.html"> условиях использования</a></small></label>
                     <button>Зарегистрироваться</button>
                 </form>
             </div>
@@ -36,10 +36,10 @@
             <div class="login">
                 <form>
                     <label for="chk" aria-hidden="true">Вход</label>
-                    <input class="login__email" type="email" name="email" placeholder="Email" required="" />
-                    <input class="login__pswd" type="password" name="pswd" placeholder="Пароль" required="" />
+                    <input class="login__email" type="email" placeholder="Email" required />
+                    <input class="login__pswd" type="password" placeholder="Пароль" required />
                     <p class="c-red d-none">Данного email-а не существует в базе</p>
-                    <button type="button" id="login">Войти</button>
+                    <button type="button" id="login" class="login__button">Войти</button>
                 </form>
             </div>
         </div>

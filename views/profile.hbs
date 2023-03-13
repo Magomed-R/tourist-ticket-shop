@@ -13,10 +13,10 @@
 	<div class="profile-image">
 		<img src="assets/icons8-cat-profile-50.svg" />
 	</div>
-	<h2 class="profile-username">{{name}}</h2>
-	<small class="profile-user-handle">{{email}}</small>
+	<h2 class="profile-username">{{user.username}}</h2>
+	<small class="profile-user-handle">{{user.email}}</small>
 	<div class="profile-actions">
-		<a href="/?txt={{name}}&email={{email}}&buys={{buys}}" class="btn btn--primary">Закрыть</a>
+		<a onclick="javascript:history.back(); return false;" class="btn btn--primary">Закрыть</a>
     </div>
 </article>
 </body>

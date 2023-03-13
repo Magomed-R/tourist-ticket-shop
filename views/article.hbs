@@ -29,14 +29,14 @@
                     </div>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-2">
-                        <li><a href="/?txt={{name}}&email={{email}}&buys={{buys}}" class="nav-link px-2 link-dark violet">Все билеты</a></li>
-                        <li><a href="/?txt={{name}}&email={{email}}&buys={{buys}}" class="nav-link px-2 link-dark">Популярные</a></li>
-                        <li><a href="about-us?txt={{name}}&email={{email}}&buys={{buys}}" class="nav-link px-2 link-dark">О нас</a></li>
+                        <li><a href="/main" class="nav-link px-2 link-dark violet">Все билеты</a></li>
+                        <li><a href="/main?tag=popular" class="nav-link px-2 link-dark">Популярные</a></li>
+                        <li><a href="/about-us" class="nav-link px-2 link-dark">О нас</a></li>
                         <li>
-                            <a href="basket?txt={{name}}&email={{email}}&buys={{buys}}" class="nav-link px-2 link-dark position-relative">
+                            <a href="basket" class="nav-link px-2 link-dark position-relative">
                                 Корзина
                                 <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-violet">
-                                    0
+                                    {{basket.length}}
                                     <span class="visually-hidden">unread messages</span>
                                 </span></a
                             >
@@ -52,9 +52,9 @@
                             </a>
                             <ul class="dropdown-menu text-small" data-bs-theme="dark">
                                 <li><a class="dropdown-item" href="404.html">Настройки</a></li>
-                                <li><a class="dropdown-item" href="/profile?txt={{name}}&email={{email}}&buys={{buys}}">Профиль</a></li>
+                                <li><a class="dropdown-item" href="/profile">Профиль</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="index.html">Выйти</a></li>
+                                <li><a class="dropdown-item" href="/">Выйти</a></li>
                             </ul>
                         </div>
                     </div>
@@ -87,15 +87,12 @@
                 <div class="card-body">
                     <h5 class="card-title">{{info.title}}</h5>
                     <p class="card-text">{{info.description}}</p>
-                    <p class="card-text d-flex justify-content-between align-items-center text-muted">от {{info.price}} руб / место <button onclick="javascript:history.back(); return false;" type="button" class="btn btn-primary bg-violet">В корзину</button></p>
+                    <p class="card-text d-flex justify-content-between align-items-center text-muted">Цена билета от {{info.price}} руб / место <a class="btn btn-primary bg-violet text-decoration-none text-nowrap" href="/newBuy?id={{id}}">В корзину</a></p>
                 </div>
             </div>
         </main>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top container">
             <div class="col-md-4 d-flex align-items-center">
-                <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                    <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-                </a>
                 <span class="mb-3 mb-md-0 text-muted">DaTravel © 2023 Company, Inc</span>
             </div>
 
