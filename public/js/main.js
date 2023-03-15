@@ -18,12 +18,3 @@ document.querySelector(`input`).addEventListener(`input`, function () {
         }
     });
 });
-
-document.querySelector(`.main__svg`).addEventListener(`click`, function () {
-    document.querySelector(`.welcome-card`).classList.add(`opacity-0`);
-    setTimeout(deleteWelcome, 1000)
-});
-
-function deleteWelcome() {
-    document.querySelector(`.welcome-card`).classList.add(`d-none`);
-}

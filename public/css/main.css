@@ -9,7 +9,7 @@ body svg {
   cursor: pointer;
 }
 body .bg-violet {
-  background: darkviolet;
+  background: darkviolet !important;
   border: none !important;
 }
 body .violet {
@@ -19,24 +19,105 @@ body header {
   white-space: nowrap;
   z-index: 1;
 }
+@media (min-width: 992px) {
+  body header .logo {
+    margin-right: auto !important;
+  }
+}
+body header .logo-text {
+  font-size: 1.7em;
+  font-family: "Signika Negative";
+  margin: 0 3px;
+  color: #8046fd;
+}
+@media (max-width: 428px) {
+  body .nav {
+    gap: 0 !important;
+    margin: 0 0 10px 0 !important;
+    padding: 0 !important;
+  }
+  body header {
+    padding: 10px !important;
+  }
+  body header form {
+    margin: 0;
+  }
+}
 body main {
   transition: 1s all;
 }
 body main .welcome-card {
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.2) !important;
-  border-radius: 0.375em !important;
   transition: 1s all;
-  padding: 10px;
 }
 body main .position-top-end {
   position: absolute;
   top: 0;
   right: 0;
 }
+body main .btn-outline-violet {
+  border-color: darkviolet !important;
+  color: darkviolet;
+}
+body main .btn-outline-violet:hover {
+  background-color: darkviolet !important;
+}
+body main .carousel-inner {
+  overflow: hidden;
+  border-radius: 0.375rem 0.375rem 0 0 !important;
+}
+body main .elips {
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+body main .elips1 {
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+body main .input {
+  width: 60px;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+body main .plus {
+  border-top-right-radius: 0 !important;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+body main .minus {
+  border-bottom-left-radius: 0 !important;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+body main .result-price {
+  font-weight: bold;
+  border-bottom: 2px dashed #000;
+}
+body main .result-price-container {
+  position: sticky;
+  top: 20px;
+}
 @media (min-width: 0) and (max-width: 767px) {
   body main .img-fluid {
     border-radius: 0.375em 0.375em 0 0 !important;
+  }
+}
+@media (max-width: 1000px) {
+  body main .result-price-container .card {
+    position: fixed !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
   }
 }
 
@@ -52,4 +133,15 @@ body main .position-top-end {
   .welcome-card {
     width: 95% !important;
   }
+}
+:root,
+[data-bs-theme=light] {
+  --bs-primary-bg-subtle: #cfd7ff;
+  --bs-primary-border-subtle: #b49efe;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }/*# sourceMappingURL=main.css.map */

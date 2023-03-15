@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8" />
@@ -10,13 +9,16 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous" defer></script>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="css/main.css" />
     </head>
     <body>
         <header class="p-3 mb-3 border-bottom">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <div class="d-flex align-items-center m-1 mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <div class="d-flex align-items-center m-1 mb-2 mb-lg-0 text-dark text-decoration-none logo">
                         <svg id="logo-82" width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 class="ccustom"
@@ -26,9 +28,10 @@
                                 fill="#8046FD"
                             ></path>
                         </svg>
+                        <span class="logo-text">DaTravel</span>
                     </div>
 
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-2">
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 d-flex justify-content-center flex-nowrap mb-md-0 gap-2">
                         <li><a href="/main" class="nav-link px-2 link-dark violet">Все билеты</a></li>
                         <li><a href="/main?tag=popular" class="nav-link px-2 link-dark">Популярные</a></li>
                         <li><a href="/about-us" class="nav-link px-2 link-dark">О нас</a></li>
@@ -38,12 +41,11 @@
                                 <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-violet">
                                     {{basket.length}}
                                     <span class="visually-hidden">unread messages</span>
-                                </span></a
-                            >
+                                </span></a>
                         </li>
                     </ul>
-                    <div class="d-flex justify-content-center align-items-start gap-4">
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <div class="d-flex justify-content-center align-items-start gap-2">
+                        <form class="col-12 col-lg-auto" role="search">
                             <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search" />
                         </form>
                         <div class="dropdown text-end">
@@ -62,7 +64,7 @@
             </div>
         </header>
         <main class="d-flex flex-column justify-content-start align-items-center">
-            <div class="card mb-3" style="max-width: 940px">
+            <div class="card mb-3 alert alert-primary p-0 link-dark m-2" style="max-width: 940px; min-width: 300px;">
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -87,7 +89,20 @@
                 <div class="card-body">
                     <h5 class="card-title">{{info.title}}</h5>
                     <p class="card-text">{{info.description}}</p>
-                    <p class="card-text d-flex justify-content-between align-items-center text-muted">Цена билета от {{info.price}} руб / место <a class="btn btn-primary bg-violet text-decoration-none text-nowrap" href="/newBuy?id={{id}}">В корзину</a></p>
+                    <p class="card-text d-flex flex-nowrap">
+                        Оценки покупателей: 
+                        {{#each info.mark}}
+                            <img src="{{this}}" alt="" style="width: 20px; height: 20px" />
+                        {{/each}}
+                    </p>
+                    <p class="card-text d-flex justify-content-between align-items-center text-muted elips1">
+                        Цена билета от {{info.price}} руб / место 
+                        {{#if inBasket}}
+                            <a href="/basket" class="btn btn-outline-primary btn-outline-violet text-decoration-none text-nowrap">В корзине</a>
+                        {{else}}
+                            <a class="btn btn-primary bg-violet text-decoration-none text-nowrap" href="/newBuy?id={{id}}">В корзину</a>
+                        {{/if}}
+                    </p>
                 </div>
             </div>
         </main>
@@ -98,24 +113,23 @@
 
             <ul class="footer__ul nav col-md-4 justify-content-end list-unstyled d-flex align-items-center">
                 <li class="ms-3 d-flex align-items-center">
-                    <a class="text-muted" target="_blank" href="https://github.com/Magomed-R"
-                        ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    <a class="text-muted" target="_blank" href="https://github.com/Magomed-R"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path>
                         </svg>
                     </a>
                 </li>
                 <li class="ms-3 d-flex align-items-center">
                     <a class="text-muted" target="_blank" href="https://vk.com/magomedradzhabov2006">
-                        <?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="32px" height="32px">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="32px" height="32px">
                             <path
                                 d="M24,4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18c1.105,0,2-0.895,2-2V6C26,4.895,25.105,4,24,4z M21.361,18.967 l-1.868,0.026c0,0-0.403,0.079-0.93-0.285c-0.699-0.48-1.358-1.729-1.872-1.567c-0.521,0.166-0.505,1.29-0.505,1.29 s0.004,0.198-0.115,0.327c-0.129,0.139-0.382,0.125-0.382,0.125h-0.837c0,0-1.846,0.153-3.473-1.543 c-1.772-1.849-3.338-5.498-3.338-5.498s-0.092-0.23,0.006-0.348c0.111-0.13,0.41-0.134,0.41-0.134l2-0.01 c0,0,0.188,0.033,0.324,0.133c0.111,0.082,0.174,0.236,0.174,0.236s0.323,0.819,0.752,1.561c0.836,1.446,1.224,1.763,1.508,1.608 c0.414-0.226,0.29-2.044,0.29-2.044s0.008-0.66-0.208-0.954c-0.168-0.229-0.484-0.297-0.622-0.314 c-0.113-0.015,0.071-0.277,0.311-0.395c0.36-0.176,0.996-0.186,1.747-0.179c0.585,0.006,0.754,0.042,0.982,0.098 c0.69,0.167,0.456,0.811,0.456,2.356c0,0.495-0.089,1.191,0.267,1.42c0.154,0.099,0.529,0.015,1.464-1.579 c0.445-0.756,0.778-1.644,0.778-1.644s0.073-0.158,0.186-0.226c0.116-0.07,0.272-0.048,0.272-0.048l2.105-0.013 c0,0,0.632-0.076,0.735,0.211c0.108,0.3-0.236,1.001-1.096,2.148c-1.412,1.884-1.569,1.709-0.396,2.799 c1.12,1.041,1.351,1.547,1.39,1.611C22.339,18.906,21.361,18.967,21.361,18.967z"
-                            />
+                            ></path>
                         </svg>
                     </a>
                 </li>
                 <li class="ms-3 d-flex align-items-center">
                     <a class="text-muted" target="_blank" href="https://t.me/a_temp_file">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="28px" height="28px"><path class="violet" d="M46.137,6.552c-0.75-0.636-1.928-0.727-3.146-0.238l-0.002,0C41.708,6.828,6.728,21.832,5.304,22.445	c-0.259,0.09-2.521,0.934-2.288,2.814c0.208,1.695,2.026,2.397,2.248,2.478l8.893,3.045c0.59,1.964,2.765,9.21,3.246,10.758	c0.3,0.965,0.789,2.233,1.646,2.494c0.752,0.29,1.5,0.025,1.984-0.355l5.437-5.043l8.777,6.845l0.209,0.125	c0.596,0.264,1.167,0.396,1.712,0.396c0.421,0,0.825-0.079,1.211-0.237c1.315-0.54,1.841-1.793,1.896-1.935l6.556-34.077	C47.231,7.933,46.675,7.007,46.137,6.552z M22,32l-3,8l-3-10l23-17L22,32z" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="28px" height="28px"><path class="violet" d="M46.137,6.552c-0.75-0.636-1.928-0.727-3.146-0.238l-0.002,0C41.708,6.828,6.728,21.832,5.304,22.445	c-0.259,0.09-2.521,0.934-2.288,2.814c0.208,1.695,2.026,2.397,2.248,2.478l8.893,3.045c0.59,1.964,2.765,9.21,3.246,10.758	c0.3,0.965,0.789,2.233,1.646,2.494c0.752,0.29,1.5,0.025,1.984-0.355l5.437-5.043l8.777,6.845l0.209,0.125	c0.596,0.264,1.167,0.396,1.712,0.396c0.421,0,0.825-0.079,1.211-0.237c1.315-0.54,1.841-1.793,1.896-1.935l6.556-34.077	C47.231,7.933,46.675,7.007,46.137,6.552z M22,32l-3,8l-3-10l23-17L22,32z"></path></svg>
                     </a>
                 </li>
             </ul>

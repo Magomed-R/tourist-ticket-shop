@@ -1,11 +1,3 @@
-/* template:
-{
-    name: 'name',
-    email: 'email',
-    pswd: 'pswd'
-    basket: 0
-} */
-
 let express = require(`express`);
 let app = express();
 
@@ -121,20 +113,27 @@ app.get(`/basket`, function (req, res) {
 
 app.get(`/article`, function (req, res) {
     let id = req.query.id;
+    let inBasket = false;
+    basket.forEach((item) => {
+        if (item.title.includes(database[id].title)) {
+            inBasket = true;
+        }
+    });
     res.render(`article`, {
         info: database[id],
         id: id,
         user: user,
-        basket: basket
+        basket: basket,
+        inBasket: inBasket
     });
 });
 
 app.get(`/newBuy`, function (req, res) {
     let id = req.query.id;
-    let condition = true
+    let condition = true;
     basket.forEach((item) => {
         if (item.title.includes(database[id].title)) {
-            condition = false
+            condition = false;
         }
     });
     if (condition) {
@@ -155,7 +154,8 @@ app.get(`/deleteWelcome`, function (req, res) {
 });
 
 app.get(`/deleteTicket`, function (req, res) {
-    basket.splice(basket[req.query.id], 1);
+    basket.splice(req.query.id, 1);
     res.redirect(`/basket`);
 });
 
+/* Привет завтрашний я. Я на сегодня закончил работу и иду отдыхать. Завтра ты должен будешь реализовать заказ в корзине. Я нашёл отличную форму на кодпен, чтобы тебе не пришлось пыжиться над версткой. Удачи! */
