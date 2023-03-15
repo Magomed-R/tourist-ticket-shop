@@ -55,8 +55,8 @@ let database = [
         mark: ["assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png", "assets/empty-star.png"]
     }
 ];
+let usersDarabase = [];
 let user = {};
-user.welcomeMessage = true;
 let basket = [];
 
 app.get(`/`, function (req, res) {
@@ -68,6 +68,7 @@ app.post(`/signUp`, function (req, res) {
     user.username = req.body.username;
     user.email = req.body.email;
     user.pswd = req.body.pswd;
+    user.welcomeMessage = true;
     res.redirect(`/main`);
 });
 
