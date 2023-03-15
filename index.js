@@ -55,20 +55,21 @@ let database = [
         mark: ["assets/star.png", "assets/star.png", "assets/star.png", "assets/star.png", "assets/empty-star.png"]
     }
 ];
-let usersDarabase = [];
-let user = {};
-let basket = [];
+let usersDataBase = [];
+let userNumber = 0;
 
 app.get(`/`, function (req, res) {
     res.render(`index`);
 });
 
 app.post(`/signUp`, function (req, res) {
-    basket = [];
-    user.username = req.body.username;
-    user.email = req.body.email;
-    user.pswd = req.body.pswd;
-    user.welcomeMessage = true;
+    userNumber++;
+    usersDataBase[userNumber] = {};
+    usersDataBase[userNumber].username = req.body.username;
+    usersDataBase[userNumber].email = req.body.email;
+    usersDataBase[userNumber].pswd = req.body.pswd;
+    usersDataBase[userNumber].welcomeMessage = true;
+    usersDataBase[userNumber].basket = [];
     res.redirect(`/main`);
 });
 
@@ -86,8 +87,8 @@ app.get(`/main`, function (req, res) {
         });
     }
     res.render(`main`, {
-        user: user,
-        basket: basket,
+        user: usersDataBase[userNumber],
+        basket: usersDataBase[userNumber].basket,
         info: info,
         allTickets: allTickets,
         popularTickets: popularTickets
@@ -97,17 +98,17 @@ app.get(`/main`, function (req, res) {
 app.get(`/profile`, function (req, res) {
     res.render(`profile`, {
         info: database,
-        user: user
+        user: usersDataBase[userNumber]
     });
 });
 
 app.get(`/basket`, function (req, res) {
     let noneBuys = true;
-    if (basket.length) noneBuys = false;
+    if (usersDataBase[userNumber].basket.length) noneBuys = false;
     res.render(`basket`, {
         info: database,
-        user: user,
-        basket: basket,
+        user: usersDataBase[userNumber],
+        basket: usersDataBase[userNumber].basket,
         noneBuys: noneBuys
     });
 });
@@ -115,7 +116,7 @@ app.get(`/basket`, function (req, res) {
 app.get(`/article`, function (req, res) {
     let id = req.query.id;
     let inBasket = false;
-    basket.forEach((item) => {
+    usersDataBase[userNumber].basket.forEach((item) => {
         if (item.title.includes(database[id].title)) {
             inBasket = true;
         }
@@ -123,8 +124,8 @@ app.get(`/article`, function (req, res) {
     res.render(`article`, {
         info: database[id],
         id: id,
-        user: user,
-        basket: basket,
+        user: usersDataBase[userNumber],
+        basket: usersDataBase[userNumber].basket,
         inBasket: inBasket
     });
 });
@@ -132,31 +133,46 @@ app.get(`/article`, function (req, res) {
 app.get(`/newBuy`, function (req, res) {
     let id = req.query.id;
     let condition = true;
-    basket.forEach((item) => {
+    usersDataBase[userNumber].basket.forEach((item) => {
         if (item.title.includes(database[id].title)) {
             condition = false;
         }
     });
     if (condition) {
-        basket.push(database[id]);
+        usersDataBase[userNumber].basket.push(database[id]);
     }
     res.redirect(`/article?id=${id}`);
 });
 
 app.get(`/about-us`, function (req, res) {
     res.render(`about-us`, {
-        basket: basket
+        basket: usersDataBase[userNumber].basket
     });
 });
 
 app.get(`/deleteWelcome`, function (req, res) {
-    user.welcomeMessage = false;
+    usersDataBase[userNumber].welcomeMessage = false;
     res.redirect(`/main`);
 });
 
 app.get(`/deleteTicket`, function (req, res) {
-    basket.splice(req.query.id, 1);
+    usersDataBase[userNumber].basket.splice(req.query.id, 1);
     res.redirect(`/basket`);
 });
 
-/* Привет завтрашний я. Я на сегодня закончил работу и иду отдыхать. Завтра ты должен будешь реализовать заказ в корзине. Я нашёл отличную форму на кодпен, чтобы тебе не пришлось пыжиться над версткой. Удачи! */
+app.get(`/admin`, function (req, res) {
+    res.render(`admin_panel`, {
+        data: usersDataBase
+    });
+});
+
+app.post(`/add`, function (req, res) {
+    userNumber++;
+    usersDataBase[userNumber] = {};
+    usersDataBase[userNumber].username = req.body.username;
+    usersDataBase[userNumber].email = req.body.email;
+    usersDataBase[userNumber].pswd = req.body.pswd;
+    usersDataBase[userNumber].welcomeMessage = true;
+    usersDataBase[userNumber].basket = [];
+    res.redirect(`/admin`);
+});
